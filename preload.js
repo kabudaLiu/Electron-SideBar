@@ -1,10 +1,7 @@
-// window.addEventListener('DOMContentLoaded', () => {
-//   const replaceText = (selector, text) => {
-//     const element = document.getElementById(selector)
-//     if (element) element.innerText = text
-//   }
+const { contextBridge, ipcRenderer,remote } = require('electron/renderer');
+// const {  remote } = require('electron');
 
-//   for (const dependency of ['chrome', 'node', 'electron']) {
-//     replaceText(`${dependency}-version`, process.versions[dependency])
-//   }
-// })
+contextBridge.exposeInMainWorld('electronAPI', {
+  showWin: (title) => ipcRenderer.send('show-win', title),
+  getCurrentWindow:(title) => ipcRenderer.send('chuandi', title),
+});

@@ -1,16 +1,43 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>你好!</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
   </head>
   <body>
-    <h1>你好!</h1>
-    我们正在使用 Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    和 Electron <span id="electron-version"></span>.
-    <!-- <script src="./renderer.js"></script> -->
+    <!-- <div id="box">111111111</div> -->
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
+  <style>
+    #box {
+      width: 500px;
+      height: 500px;
+      background-color: lightblue; /* 修改颜色以符合你的需求 */
+    }
+    </style>
+   
+    <script >
+  
+//       const setButton = document.getElementById('box')
+// setButton.addEventListener('click', (e) => {
+//  e.stopPropagation()
+//  console.log(1111)
+
+//   window.electronAPI.showWin('showWin')
+// })
+// setButton.addEventListener("mouseenter", (e) => {
+//     // console.log(remote.getCurrentWindow(), 22222);
+//     window.electronAPI.getCurrentWindow(1);
+//   });
+//   setButton.addEventListener("mouseleave", (e) => {
+//     e.stopPropagation();
+//     window.electronAPI.getCurrentWindow(2);
+
+//     //  window.electronAPI.getCurrentWindow().setIgnoreMouseEvents(true, { forward: true })
+//   });
+
+    </script>
 </html>

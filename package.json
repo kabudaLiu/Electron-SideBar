@@ -4,12 +4,22 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electromon .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^30.0.0"
+    "@electron/remote": "^2.1.2",
+    "electromon": "^1.0.10",
+    "electron": "^30.0.0",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0"
   }
 }
