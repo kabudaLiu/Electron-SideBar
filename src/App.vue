@@ -1,17 +1,18 @@
 
 
 <template>
-  <div id="box">111111111</div>
+  <div id="box">
+    <div v-for="(item,index) in bottomArr"
+      :key="index">
+      {{item}}
+    </div>
+  </div>
 
 </template>
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import { onMounted } from "vue";
-// import { remote } from "@electron/remote";
-
-// const {remote} = require('@electron/remote');
-// import { remote } from "electron";
-// const win = require("electron").remote.getCurrentWindow();
+const bottomArr = ["鼠标", "画板"];
 onMounted(() => {
   const setButton = document.getElementById("box");
   setButton.addEventListener("click", (e) => {
@@ -20,11 +21,11 @@ onMounted(() => {
   });
   setButton.addEventListener("mouseenter", (e) => {
     // console.log(remote.getCurrentWindow(), 22222);
-    window.electronAPI.getCurrentWindow(1);
+    window.electronAPI.mouseAcross(1);
   });
   setButton.addEventListener("mouseleave", (e) => {
     e.stopPropagation();
-    window.electronAPI.getCurrentWindow(2);
+    window.electronAPI.mouseAcross(2);
 
     //  window.electronAPI.getCurrentWindow().setIgnoreMouseEvents(true, { forward: true })
   });
@@ -33,10 +34,15 @@ onMounted(() => {
 <style scoped>
 #box {
   position: absolute;
-  top: 0;
-  left: 0;
+  bottom: 0px;
+  right: 600px;
+
   width: 500px;
-  height: 500px;
+  height: 50px;
   background-color: lightblue; /* 修改颜色以符合你的需求 */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
 }
 </style>

@@ -3,5 +3,5 @@ const { contextBridge, ipcRenderer,remote } = require('electron/renderer');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   showWin: (title) => ipcRenderer.send('show-win', title),
-  getCurrentWindow:(title) => ipcRenderer.send('chuandi', title),
+  mouseAcross:(title) => ipcRenderer.send('mouse-across', title),
 });

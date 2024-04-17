@@ -10,12 +10,19 @@ const createWindow = () => {
     // 获取主屏幕的大小
     const mainScreen = screen.getPrimaryDisplay();
     const dimensions = mainScreen.size;
- 
+
+// 获取任务栏的高度
+const allDisplays = screen.getAllDisplays();
+const primaryDisplay = allDisplays.find(display => display.id === mainScreen.id);
+const taskbarHeight = primaryDisplay.bounds.height - primaryDisplay.workAreaSize.height;
+
+// 在主屏幕高度中减去任务栏高度
+const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
 
 
   win = new BrowserWindow({
     width: dimensions.width,
-    height: dimensions.height,
+    height: screenHeightWithoutTaskbar,
   
     show: false
   });
@@ -24,7 +31,7 @@ const createWindow = () => {
 
   const sidebarWindow  = new BrowserWindow({
     width: dimensions.width,
-    height: dimensions.height,
+    height:screenHeightWithoutTaskbar,
     frame: false, // 设置为 false 隐藏标题栏包括放大缩小按钮
     transparent: true, // 设置窗口为透明,在Windows上，仅在无边框窗口下起作用。
     webPreferences: {
@@ -33,10 +40,13 @@ const createWindow = () => {
     },
     parent: win,
   })
-  // sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
-  // 透明时，设置窗口穿透，鼠标事件穿透窗口
-  sidebarWindow .loadURL('http://localhost:5173/');
+   // 当打开开发者工具时，窗口将不透明。
   // sidebarWindow.webContents.openDevTools()
+  // 透明时，设置窗口穿透，鼠标事件穿透窗口
+
+  // sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
+  sidebarWindow .loadURL('http://localhost:5173/');
+ 
     // 通过 IPC 通信，在主窗口中控制侧边栏的显示与隐藏
     ipcMain.on('show-win', () => {
       console.log(win.isVisible(),1111)
@@ -47,9 +57,9 @@ const createWindow = () => {
       }
     });
     
-ipcMain.on('chuandi', (event,title) => {
-  if(title===1) sidebarWindow .setIgnoreMouseEvents(false)
-  if(title===2) sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
+ipcMain.on('mouse-across', (event,title) => {
+  title===1 ? sidebarWindow .setIgnoreMouseEvents(false):
+   sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
   // const currentWindow = sidebarWindow.getFocusedWindow();
   console.log(title)
   // event.returnValue =sidebarWindow;
