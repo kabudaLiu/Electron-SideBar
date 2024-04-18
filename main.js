@@ -19,6 +19,8 @@ const taskbarHeight = primaryDisplay.bounds.height - primaryDisplay.workAreaSize
 // 在主屏幕高度中减去任务栏高度
 const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
 
+// window?.canvansWidth=dimensions.width
+// window?.canvansHeight=screenHeightWithoutTaskbar
 
   win = new BrowserWindow({
     width: dimensions.width,
@@ -57,12 +59,11 @@ const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
       }
     });
     
-ipcMain.on('mouse-across', (event,title) => {
-  title===1 ? sidebarWindow .setIgnoreMouseEvents(false):
-   sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
-  // const currentWindow = sidebarWindow.getFocusedWindow();
-  console.log(title)
-  // event.returnValue =sidebarWindow;
+ipcMain.on('mouse-across', (event,bool,options) => {
+
+ 
+   sidebarWindow .setIgnoreMouseEvents(bool, options)
+ 
 });
 // 第三步： 开启remote服务
 // remote.enable(sidebarWindow.webContents);
