@@ -28,7 +28,7 @@ const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
   
     show: false
   });
-  win.loadURL('http://localhost:5174/');
+  // win.loadURL('http://localhost:5174/');
 
 
   const sidebarWindow  = new BrowserWindow({
@@ -47,8 +47,23 @@ const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
   // 透明时，设置窗口穿透，鼠标事件穿透窗口
 
   // sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
+  // sidebarWindow .loadURL('http://localhost:5173/');
+  const isDevelopment = process.env.NODE_ENV !== 'production';
+
+  if (isDevelopment) {
+    // 开发环境下的代码
+    console.log('当前是开发环境');
+    win.loadURL('http://localhost:5174/');
   sidebarWindow .loadURL('http://localhost:5173/');
- 
+
+  } else {
+    // 生产环境下的代码
+    console.log('当前是生产环境');
+    win.loadFile(path.join(__dirname, '1/dist/index.html'))
+  
+  sidebarWindow .loadFile( path.join(__dirname, 'dist/index.html'));
+
+  }
     // 通过 IPC 通信，在主窗口中控制侧边栏的显示与隐藏
     ipcMain.on('show-win', () => {
       console.log(win.isVisible(),1111)
@@ -80,6 +95,3 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
-
-  
-
