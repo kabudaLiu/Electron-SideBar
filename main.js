@@ -1,11 +1,7 @@
 const { app, BrowserWindow,screen  } = require('electron')
 const { ipcMain } = require('electron');
-// 在你文件顶部导入 Node.js 的 path 模块
 const path = require('node:path')
-// // 第一步：引入remote
-// const remote = require('@electron/remote/main');
-// // 第二步： 初始化remote
-// remote.initialize();
+
 const createWindow = () => {
     // 获取主屏幕的大小
     const mainScreen = screen.getPrimaryDisplay();
@@ -19,18 +15,12 @@ const taskbarHeight = primaryDisplay.bounds.height - primaryDisplay.workAreaSize
 // 在主屏幕高度中减去任务栏高度
 const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
 
-// window?.canvansWidth=dimensions.width
-// window?.canvansHeight=screenHeightWithoutTaskbar
-
   win = new BrowserWindow({
     width: dimensions.width,
     height: screenHeightWithoutTaskbar,
-  
     show: false
   });
-  // win.loadURL('http://localhost:5174/');
-
-
+  win.maximize()
   const sidebarWindow  = new BrowserWindow({
     width: dimensions.width,
     height:screenHeightWithoutTaskbar,
@@ -40,28 +30,30 @@ const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
       preload: path.join(__dirname, 'preload.js'),
     
     },
-    parent: win,
+    parent: win,//child 窗口将总是显示在 parent 窗口的上层.
   })
+  sidebarWindow.maximize()
    // 当打开开发者工具时，窗口将不透明。
-  // sidebarWindow.webContents.openDevTools()
+  sidebarWindow.webContents.openDevTools()
+  win.webContents.openDevTools()
+
   // 透明时，设置窗口穿透，鼠标事件穿透窗口
-
   // sidebarWindow .setIgnoreMouseEvents(true, { forward: true })
-  // sidebarWindow .loadURL('http://localhost:5173/');
-  const isDevelopment = process.env.NODE_ENV !== 'production';
 
+  const isDevelopment = process.env.NODE_ENV === 'development';
+console.log(process.env.NODE_ENV)
   if (isDevelopment) {
     // 开发环境下的代码
     console.log('当前是开发环境');
-    win.loadURL('http://localhost:5174/');
-  sidebarWindow .loadURL('http://localhost:5173/');
+  sidebarWindow .loadURL('http://localhost:3001/');
+    win.loadURL('http://localhost:3002/');
 
   } else {
     // 生产环境下的代码
     console.log('当前是生产环境');
-    win.loadFile(path.join(__dirname, '1/dist/index.html'))
+    win.loadFile(path.join(__dirname, 'dist/index.html'))
   
-  sidebarWindow .loadFile( path.join(__dirname, 'dist/index.html'));
+  sidebarWindow .loadFile( path.join(__dirname, 'sidebar/dist/index.html'));
 
   }
     // 通过 IPC 通信，在主窗口中控制侧边栏的显示与隐藏
@@ -75,13 +67,9 @@ const screenHeightWithoutTaskbar = dimensions.height - taskbarHeight;
     });
     
 ipcMain.on('mouse-across', (event,bool,options) => {
-
- 
    sidebarWindow .setIgnoreMouseEvents(bool, options)
- 
 });
-// 第三步： 开启remote服务
-// remote.enable(sidebarWindow.webContents);
+
 }
 app.whenReady().then(() => {
   createWindow()

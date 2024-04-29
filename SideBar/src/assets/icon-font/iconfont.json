@@ -1,0 +1,51 @@
+{
+  "id": "4524344",
+  "name": "electron-sidebar",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5194039",
+      "name": "铅笔",
+      "font_class": "qianbi",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "6528456",
+      "name": "鼠标",
+      "font_class": "shubiao",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "7789608",
+      "name": "撤销",
+      "font_class": "chexiao",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "8817462",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "11072331",
+      "name": "修改样式",
+      "font_class": "huahua",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "18171135",
+      "name": "橡皮,擦除,橡皮擦",
+      "font_class": "rubber",
+      "unicode": "ea15",
+      "unicode_decimal": 59925
+    }
+  ]
+}

@@ -4,22 +4,20 @@
   "description": "1",
   "main": "main.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron-forge start",
+    "start": "cross-env NODE_ENV=development  electron-forge start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --port 3002",
+    "build": "vite build ",
     "preview": "vite preview",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "package": "  electron-forge package",
+    "make": "vite build && node updatePaths.js && electron-forge make"
   },
   "author": "1",
   "license": "ISC",
   "dependencies": {
-    "@electron/remote": "^2.1.2",
     "cross-env": "^7.0.3",
     "electromon": "^1.0.10",
     "electron-squirrel-startup": "^1.0.0",
-    "fabric": "^5.3.0",
     "vue": "^3.4.21"
   },
   "devDependencies": {
